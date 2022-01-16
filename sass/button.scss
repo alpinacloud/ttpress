@@ -1,0 +1,85 @@
+button, a {
+  outline: none;
+
+  ::-moz-focus-inner {
+    outline: none;
+    border: 0;
+  }
+}
+
+.btn {
+  font-family: $font-sans-serif;
+  font-size: 1rem;
+  min-height: 1.5rem;
+  height: 36px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  border: 0;
+  padding: 0 12px;
+  cursor: pointer;
+  text-decoration: none;
+  border-radius: $radius;
+  justify-content: center;
+
+  &.width-fill {
+    width: 100%;
+  }
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &.md {
+    height: 42px;
+  }
+
+  &.lg {
+    height: 48px;
+  }
+
+  &.primary {
+    background-color: $primary;
+    color: $bg;
+    font-weight: 600;
+  
+    &:hover {
+      opacity: 0.8;
+    }
+  
+    &:focus, &:active {
+      box-shadow: 0 0 0 3px $outline;
+    }
+  }
+
+  &.secondary {
+    background-color: $bg;
+    color: $primary;
+    font-weight: 600;
+  
+    &:hover {
+      opacity: 0.8;
+    }
+  
+    &:focus, &:active {
+      box-shadow: 0 0 0 3px $outline;
+    }
+  }
+
+  &.link {
+    color: $text-muted;
+    font-family: $font-sans-serif;
+    font-weight: 600;
+    padding: 1px 3px;
+    width: fit-content;
+    height: auto;
+  
+    &:hover {
+      color: $primary;
+    }
+  
+    &:focus, &:active {
+      box-shadow: 0 0 0 3px $outline;
+    }
+  }
+}

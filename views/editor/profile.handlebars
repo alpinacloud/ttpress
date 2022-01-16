@@ -1,0 +1,39 @@
+<form method="post" action="/editor/profile">
+  <div class="bar">
+    <h2>Profile</h2>
+
+    <div class="actions">
+      <a href="/editor/posts" class="btn secondary">Cancel</a>
+    <button type="submit" class="btn primary">Save</button>
+    </div>
+  </div>
+
+  {{#if success}}
+    <div class="alert success">
+      {{{checkmarkCircleIcon}}}
+      <p class="title">Saved</p>
+    </div>
+  {{/if}}
+
+  {{#if formErrors}}
+    <div class="alert error">
+      {{{alertTriangleIcon}}}
+      <p class="title">Something's not quite right</p>
+      <ul>
+        <li>Name contains at least 3 and at most 64 characters</li>
+      </ul>
+    </div>
+  {{/if}}
+
+  <div class="grid">
+    <div class="grid-box-2">
+      <div class="form-section">
+        <h3>Personal</h3>
+        <div class="form-control">
+          <label for="name">Full name (visible to readers)</label>
+          <input type="text" id="name" name="name" value="{{#if prefill}}{{prefill.name}}{{else}}{{editor.name}}{{/if}}" />
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,51 @@
+<form method="post" action="/editor/settings" enctype="multipart/form-data">
+  <div class="bar">
+    <h2>Settings</h2>
+
+    <div class="actions">
+      <a href="/editor/posts" class="btn secondary">Cancel</a>
+    <button type="submit" class="btn primary">Save</button>
+    </div>
+  </div>
+
+  {{#if success}}
+    <div class="alert success">
+      {{{checkmarkCircleIcon}}}
+      <p class="title">Saved</p>
+    </div>
+  {{/if}}
+
+  {{#if formErrors}}
+    <div class="alert error">
+      {{{alertTriangleIcon}}}
+      <p class="title">Something's not quite right</p>
+      <ul>
+        <li>Make sure all theme colors are valid</li>
+        <li>Website name contains at least 3 and at most 24 characters</li>
+        <li>Website description contains at least 3 and at most 320 characters</li>
+        <li>Alpina website UUID is correct (if provided)</li>
+      </ul>
+    </div>
+  {{/if}}
+
+  <div class="grid">
+    <div class="grid-box-2">
+      <div class="form-section">
+        <h3>Theme</h3>
+        {{> editor/settings/theme }}
+      </div>
+    </div>
+
+    <div class="grid-box-2">
+      <div class="form-section">
+        <h3>Website</h3>
+        {{> editor/settings/site }}
+      </div>
+
+      <div class="form-section">
+        <h3>Analytics</h3>
+        {{> editor/settings/analytics }}
+      </div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,67 @@
+@mixin article {
+  * {
+    font-family: $font-serif;
+    color: $text;
+  }
+
+  blockquote {
+    border-left: 7px solid $border;
+    padding: 12px 0 12px 18px;
+    font-size: 1.4rem;
+    color: $text;
+    margin: 0;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  .ql-syntax {
+    border-radius: $radius;
+    background-color: $border;
+    color: $text;
+    font-size: 1rem;
+    padding: 12px 18px;
+    font-family: monospace;
+  }
+
+  a {
+    color: $primary !important;
+    font-weight: 600;
+  }
+
+  .ql-direction-rtl, .ql-align-center {
+    text-align: right;
+  }
+
+  .ql-align-left {
+    text-align: left;
+  }
+  
+  .ql-align-right {
+    text-align: right;
+  }
+
+  .ql-size-huge {
+    font-size: 2.2rem;
+  }
+
+  .ql-size-large {
+    font-size: 1.8rem;
+  }
+
+  .ql-size-small {
+    font-size: 1rem;
+  }
+
+  p {
+    margin: 0;
+    font-size: 1.3rem;
+  }
+
+  iframe {
+    width: 100%;
+    height: 70vh;
+    margin: 12px 0;
+  }
+}

@@ -1,0 +1,18 @@
+<header class="page">
+  <a href="/">
+    {{#if prefs.site.logo}}
+      <img src="/i/{{prefs.site.logo}}" alt="logo" />
+    {{else}}
+      <h4>{{prefs.site.websiteName}}</h4>
+    {{/if}}
+  </a>
+
+  <div class="side">
+    <form method="get" action="/search">
+      <input type="text" name="q" placeholder="Search..." />
+      <button type="submit" class="btn primary">{{{searchIcon}}}</button>
+    </form>
+
+    <a href="/feed/rss" class="rss" target="_blank">RSS {{{rssIcon}}}</a>
+  </div>
+</header>

@@ -1,0 +1,97 @@
+<div class="form-control">
+  <label for="websiteName">Name</label>
+  <input type="text" id="websiteName" name="websiteName" value="{{#if prefill}}{{prefill.websiteName}}{{else}}{{prefs.site.websiteName}}{{/if}}" />
+</div>
+
+<div class="form-control">
+  <label for="websiteDescription">Description</label>
+  <input type="text" id="websiteDescription" name="websiteDescription" value="{{#if prefill}}{{prefill.websiteDescription}}{{else}}{{prefs.site.websiteDescription}}{{/if}}" />
+</div>
+
+{{#unless installing}}
+  <div class="form-control">
+    <label for="logo">Logo (should be light, .jpg/.png)</label>
+
+    {{#if prefill}}
+      {{#if prefill.logo}}<img src="/i/{{prefill.logo}}" />{{/if}}
+    {{else}}
+      {{#if prefs.site.logo}}<img src="/i/{{prefs.site.logo}}" />{{/if}}
+    {{/if}}
+
+    <input type="file" id="logo" name="logo" />
+  </div>
+
+  <div class="form-control">
+    <label for="favicon">Favicon (.ico)</label>
+
+    {{#if prefill}}
+      {{#if prefill.favicon}}<img src="/i/{{prefill.favicon}}" />{{/if}}
+    {{else}}
+      {{#if prefs.site.favicon}}<img src="/i/{{prefs.site.favicon}}" />{{/if}}
+    {{/if}}
+
+    <input type="file" id="favicon" name="favicon" />
+  </div>
+
+  <div class="form-control">
+    Homepage style
+
+    <label for="news">
+      <input type="radio" id="news" name="homepageStyle" value="news" {{#if prefill}}{{#isEq lh=prefill.homepageStyle rh="news"}}checked{{/isEq}}{{else}}{{#isEq lh=prefs.site.homepageStyle rh="news"}}checked{{/isEq}}{{/if}} />
+      <span>News (requires you to upload a cover image for each post)</span>
+    </label>
+
+    <label for="blog">
+      <input type="radio" id="blog" name="homepageStyle" value="blog" {{#if prefill}}{{#isEq lh=prefill.homepageStyle rh="blog"}}checked{{/isEq}}{{else}}{{#isEq lh=prefs.site.homepageStyle rh="blog"}}checked{{/isEq}}{{/if}} />
+      <span>Blog</span>
+    </label>
+  </div>
+
+  <div class="form-control">
+    Attribution ("powered by ttpress")
+
+    <label for="credit-on">
+      <input type="radio" id="credit-on" name="credit" value="on" {{#if prefill}}{{#isEq lh=prefill.credit rh="on"}}checked{{/isEq}}{{else}}{{#isEq lh=prefs.site.credit rh="on"}}checked{{/isEq}}{{/if}} />
+      <span>Visible</span>
+    </label>
+
+    <label for="credit-off">
+      <input type="radio" id="credit-off" name="credit" value="off" {{#if prefill}}{{#isEq lh=prefill.credit rh="off"}}checked{{/isEq}}{{else}}{{#isEq lh=prefs.site.credit rh="off"}}checked{{/isEq}}{{/if}} />
+      <span>Hidden</span>
+    </label>
+  </div>
+
+  <div class="form-control">
+    Cover images when reading an article
+
+    <label for="coverInPosts-on">
+      <input type="radio" id="coverInPosts-on" name="coverInPosts" value="on" {{#if prefill}}{{#isEq lh=prefill.coverInPosts rh="on"}}checked{{/isEq}}{{else}}{{#isEq lh=prefs.site.coverInPosts rh="on"}}checked{{/isEq}}{{/if}} />
+      <span>Visible</span>
+    </label>
+
+    <label for="coverInPosts-off">
+      <input type="radio" id="coverInPosts-off" name="coverInPosts" value="off" {{#if prefill}}{{#isEq lh=prefill.coverInPosts rh="off"}}checked{{/isEq}}{{else}}{{#isEq lh=prefs.site.coverInPosts rh="off"}}checked{{/isEq}}{{/if}} />
+      <span>Hidden</span>
+    </label>
+  </div>
+
+  <div class="form-control">
+    Display last post update date
+
+    <label for="showPostUpdateDate-on">
+      <input type="radio" id="showPostUpdateDate-on" name="showPostUpdateDate" value="on" {{#if prefill}}{{#isEq lh=prefill.showPostUpdateDate rh="on"}}checked{{/isEq}}{{else}}{{#isEq lh=prefs.site.showPostUpdateDate rh="on"}}checked{{/isEq}}{{/if}} />
+      <span>Yes</span>
+    </label>
+
+    <label for="showPostUpdateDate-off">
+      <input type="radio" id="showPostUpdateDate-off" name="showPostUpdateDate" value="off" {{#if prefill}}{{#isEq lh=prefill.showPostUpdateDate rh="off"}}checked{{/isEq}}{{else}}{{#isEq lh=prefs.site.showPostUpdateDate rh="off"}}checked{{/isEq}}{{/if}} />
+      <span>No</span>
+    </label>
+  </div>
+
+  <div class="form-control">
+    Inject custom JavaScript
+
+    <textarea name="injectCustomJS" style="resize: vertical; min-height: 80px;">{{#if prefill}}{{prefill.injectCustomJS}}{{else}}{{prefs.site.injectCustomJS}}{{/if}}</textarea>
+  </div>
+{{/unless}}

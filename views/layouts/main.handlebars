@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{pageTitle}} - {{prefs.site.websiteName}}</title>
+
+  <link rel="stylesheet" href="/css/{{#isInEditor}}editor.css{{else}}main.css{{/isInEditor}}" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta charset="utf-8" />
+
+  {{#if prefs.site.favicon}}
+    <link rel="icon" type="image/x-icon" href="{{baseURL}}/i/{{prefs.site.favicon}}" />
+  {{/if}}
+
+  {{#if post}}
+    {{#if post.coverImage}}
+      <meta property="og:image" content="{{baseURL}}/i/{{post.coverImage}}_1000" />
+    {{/if}}
+  {{else}}
+    {{#if prefs.site.logo}}
+      <meta property="og:image" content="{{baseURL}}/i/{{prefs.site.logo}}" />
+    {{/if}}
+  {{/if}}
+
+  <meta property="og:url" content="{{baseURL}}{{currentPath}}" />
+  <meta property="og:site_name" content="{{prefs.site.websiteName}}" />
+  <meta property="og:title" content="{{#if post}}{{post.title}}{{else}}{{prefs.site.websiteName}}{{/if}}" />
+  <meta property="og:type" content="{{#if post}}article{{else}}website{{/if}}" />
+  <meta property="og:description" content="{{#if post}}{{trunc text=post.textContent limit=160}}{{else}}{{prefs.site.websiteDescription}}{{/if}}" />
+  <meta property="description" content="{{#if post}}{{trunc text=post.textContent limit=160}}{{else}}{{prefs.site.websiteDescription}}{{/if}}" />
+  <meta name="twitter:description" content="{{#if post}}{{trunc text=post.textContent limit=160}}{{else}}{{prefs.site.websiteDescription}}{{/if}}" />
+  <meta name="keywords" content="{{#if post}}{{keywordify text=post.title}}{{else}}{{keywordify text=prefs.site.websiteDescription}}{{/if}}" />
+
+  <style>
+    :root {
+      --bg-color: {{prefs.theme.bgColor}};
+      --primary-color: {{prefs.theme.primaryColor}};
+      --primary-text-color: {{prefs.theme.primaryColorText}};
+      --outline-color: {{prefs.theme.outlineColor}};
+      --border-color: {{prefs.theme.borderColor}};
+      --text-heading-color: {{prefs.theme.textHeadingColor}};
+      --text-color: {{prefs.theme.textColor}};
+      --text-muted-color: {{prefs.theme.textMutedColor}};
+      --success-color: {{prefs.theme.successColor}};
+      --error-color: {{prefs.theme.errorColor}};
+      --radius: {{prefs.theme.borderRadius}};
+    }
+  </style>
+
+  {{#isInEditor}}
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet" />
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+  {{else}}
+    {{#if ../prefs.analytics.alpinaWebsiteUUID}}
+      <script type="text/javascript">
+        window._ALPINA_ID="{{../prefs.analytics.alpinaWebsiteUUID}}";
+        (function() {
+          d=document;s=d.createElement("script");
+          s.src="https://x.alpina.io/wa.js";
+          s.async=1;
+          d.getElementsByTagName("head")[0].appendChild(s);
+        })();
+      </script>
+    {{/if}}
+  {{/isInEditor}}
+</head>
+<body>
+  {{#isInEditor}}
+    {{> editor/header withoutHeader=../withoutHeader }}
+  {{else}}
+    {{> header prefs=../prefs }}
+  {{/isInEditor}}
+
+  <div class="page{{#isInEditor}} editorMode{{/isInEditor}}">
+    {{{body}}}
+  </div>
+
+  {{#isInEditor}}
+    {{> editor/footer }}
+  {{else}}
+    {{#if ../prefs.site.injectCustomJS}}
+      <script type="text/javascript">
+        {{{../prefs.site.injectCustomJS}}}
+      </script>
+    {{/if}}
+
+    {{> footer prefs=../prefs }}
+  {{/isInEditor}}
+</body>
+</html>

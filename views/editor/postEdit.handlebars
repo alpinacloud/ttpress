@@ -1,0 +1,189 @@
+<form class="postForm" method="post" action="{{#if postUUID}}/editor/posts/{{postUUID}}{{else}}/editor/posts/new{{/if}}">
+  {{#if postUUID}}
+    <input type="hidden" name="uuid" value="{{postUUID}}" />
+  {{/if}}
+  <input type="hidden" name="state" value="DRAFT" />
+  <input type="file" style="display: none" id="postImg" />
+
+  <div class="bar">
+    <div class="form-control nospacing">
+      <input class="lg" type="text" name="title" placeholder="Title" value="{{prefill.title}}" />
+    </div>
+
+    <div class="actions">
+      <a href="/editor/posts" class="btn secondary">Cancel</a>
+      <button type="button" class="btn primary" onclick="window.publish(false)">Save as draft</button>
+      {{#if prefill.state}}
+        <button type="button" class="btn primary" onclick="window.publish(true)">Publish</button>
+      {{/if}}
+    </div>
+  </div>
+
+  {{> editor/jsWarning }}
+
+  {{#if success}}
+    <div class="alert success">
+      {{{checkmarkCircleIcon}}}
+      <p class="title">Saved</p>
+    </div>
+  {{/if}}
+
+  {{#if formErrors}}
+    <div class="alert error">
+      {{{alertTriangleIcon}}}
+      <p class="title">Something's not quite right</p>
+      {{#isEq lh=formErrors rh="unknown"}}
+        <ul>
+          <li>Title must contain at least 3 and at most 164 characters</li>
+          <li>Subtitle is optional, but if defiened it must contain at least 3 and at most 248 characters</li>
+        </ul>
+      {{else}}
+        <p>Post with the provided slug already exists (or the generated one conflicts with an existing one)</p>
+      {{/isEq}}
+    </div>
+  {{/if}}
+
+  <div class="grid nowrap">
+    <div class="grid-box-fill">
+      <div class="form-section">
+        <div class="form-control">
+          <input type="text" name="subtitle" placeholder="Subtitle (optional)" value="{{prefill.subtitle}}" />
+        </div>
+
+        <div class="form-control">
+          <input type="text" name="slug" placeholder="Slug (leave empty to generate automatically)" value="{{prefill.slug}}" />
+        </div>
+
+        <div class="form-control">
+          <input type="hidden" name="content" />
+          <div id="contentEditor">{{{prefill.content}}}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-box-fill" style="width: 240px; padding-left: 24px">
+      <div class="form-section side" style="text-align: right;">
+        <div class="cover-image">
+          <h4>Cover image</h4>
+          <img src="{{#if prefill.coverImage}}/i/{{prefill.coverImage}}_300{{/if}}" id="coverImage" {{#unless prefill.coverImage}}style="display: none"{{/unless}} />
+          <input type="hidden" name="coverImage" value="{{#if prefill}}{{prefill.coverImage}}{{/if}}" />
+          <input type="file" accept="image/jpeg, image/png" onchange="window.uploadCoverImage(this, false)" />
+        </div>
+
+        <div class="details">
+          <h4>Details</h4>
+          <span>
+            Status: <strong>{{#if prefill.state}}{{prefill.state}}{{else}}New{{/if}}</strong>
+          </span>
+          {{#if prefill}}
+            <span>Created: <strong>{{prefill.createdAt}}</strong></span>
+            <span>Updated: <strong>{{prefill.updatedAt}}</strong></span>
+          {{/if}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<script>
+  const postImg = document.querySelector('#postImg');
+
+  document.addEventListener('keydown', (event) => {
+    if (event.ctrlKey && event.key === 's') {
+      event.preventDefault();
+      event.stopPropagation();
+
+      window.publish("{{prefill.state}}" === 'PUBLISHED');
+    }
+  });
+
+  window.publish = (publish) => {
+    const output = quill.container.firstChild.innerHTML;
+
+    if (publish) {
+      document.querySelector('input[name="state"]').setAttribute('value', 'PUBLISHED');
+    }
+
+    document.querySelector('input[name="content"]').setAttribute('value', output);
+    document.querySelector('form').submit();
+  };
+
+  window.uploadCoverImage = ({ files }) => {
+    const req = new XMLHttpRequest();
+    const formData = new FormData();
+
+    formData.append('file', files[0]);
+
+    req.addEventListener('load', function() {
+      const filename = this.responseText;
+      const coverImageEl = document.querySelector('#coverImage');
+      const coverImageFormEl = document.querySelector('input[name="coverImage"]');
+
+      coverImageEl.setAttribute('src', '/i/' + filename + '_300');
+      coverImageEl.setAttribute('style', 'display: block');
+
+      coverImageFormEl.setAttribute('value', filename);
+    });
+
+    req.open('PUT', '/editor/image-upload');
+    req.send(formData);
+  }
+
+  window.quill = new Quill('#contentEditor', {
+    theme: 'snow',
+    modules: {
+      toolbar: {
+        container: [
+          ['bold', 'italic', 'underline', 'strike'],
+          ['blockquote', 'code-block'],
+
+          [{ 'header': 1 }, { 'header': 2 }],
+          [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+          [{ 'script': 'sub'}, { 'script': 'super' }],
+          //[{ 'indent': '-1'}, { 'indent': '+1' }],
+          [{ 'direction': 'rtl' }],
+
+          [{ 'size': ['small', false, 'large', 'huge'] }],
+          [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+          [{ 'color': [] }, { 'background': [] }],
+          //[{ 'font': [] }],
+          [{ 'align': [] }],
+
+          ['link', 'image', 'video'],
+          ['clean'],
+        ],
+        handlers: {
+          image: function() {
+            const quill = this.quill;
+
+            var input = document.createElement('input');
+
+            input.setAttribute('type', 'file');
+            input.setAttribute('accept', 'image/*');
+            input.onchange = async function() {
+              const req = new XMLHttpRequest();
+              const formData = new FormData();
+
+              formData.append('file', this.files[0]);
+              formData.append('isPostImg', 'true');
+
+              req.addEventListener('load', function() {
+                var range = quill.getSelection();
+              
+                quill.insertEmbed(range.index, 'image', `/i/${this.responseText}`);
+                quill.setSelection(range.index + 1);
+              });
+
+              req.open('PUT', '/editor/image-upload');
+              req.send(formData);
+            }
+
+            input.click();
+          },
+        },
+      }
+    },
+  });
+</script>

@@ -1,0 +1,86 @@
+.ql-toolbar, .ql-container, .ql-picker.ql-expanded > span {
+  border-color: $border !important;
+}
+
+.ql-toolbar {
+  border-top-left-radius: $radius !important;
+  border-top-right-radius: $radius !important;
+  position: sticky;
+  top: 120px;
+  background-color: #fff;
+  z-index: 1;
+}
+
+.ql-container {
+  border-bottom-left-radius: $radius !important;
+  border-bottom-right-radius: $radius !important;
+  * {
+    font-family: $font-serif;
+  }
+}
+
+.ql-toolbar {
+  .ql-stroke {
+    stroke: $text-muted !important;
+  }
+
+  .ql-fill {
+    fill: $text-muted !important;
+  }
+}
+
+.ql-picker {
+  span {
+    color: $text-muted !important;
+  }
+
+  &:hover {
+    span {
+      color: $primary !important;
+    }
+  }
+}
+
+.ql-expanded .ql-picker-options > span {
+  color: $text-muted !important;
+
+  &:hover, &.ql-selected {
+    color: $primary !important;
+
+    .ql-stroke {
+      stroke: $primary !important;
+    }
+  
+    .ql-fill {
+      fill: $primary !important;
+    }
+  }
+}
+
+.ql-picker-label:hover, .ql-formats > button:hover, .ql-picker-label:focus, .ql-formats > button:focus, .ql-active {
+  :not(.ql-color-label).ql-stroke,
+  &:not(.ql-color-label).ql-stroke {
+    stroke: $primary !important;
+  }
+
+  :not(.ql-color-label).ql-fill,
+  &:not(.ql-color-label).ql-fill {
+    fill: $primary !important;
+  }
+}
+
+.ql-picker-label:focus, .ql-formats > button:focus, .ql-active {
+  box-shadow: 0 0 0 2px $outline;
+
+  .ql-stroke {
+    stroke: $primary !important;
+  }
+
+  .ql-fill {
+    fill: $primary !important;
+  }
+}
+
+.ql-editor {
+  @include article;
+}

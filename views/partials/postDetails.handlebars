@@ -1,0 +1,25 @@
+<div class="details">
+  <span>{{post.readTime}}</span>
+  <span class="dot">&middot;</span>
+  
+  <span>
+    {{#unless hideUpdateDate}}
+      {{#isEq lh=prefs.site.showPostUpdateDate rh="on"}}
+        {{#isEq lh=post.createdAt rh=post.updatedAt}}
+          {{post.createdAt}}
+        {{else}}
+          {{post.createdAt}} (last update {{post.updatedAt}})
+        {{/isEq}}
+      {{else}}
+        {{post.createdAt}}
+      {{/isEq}}
+    {{else}}
+      {{post.createdAt}}
+    {{/unless}}
+  </span>
+
+  {{#if post.author}}
+    <span class="dot">&middot;</span>
+    <span>Written by <strong>{{post.author}}</strong></span>
+  {{/if}}
+</div>

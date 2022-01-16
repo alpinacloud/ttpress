@@ -1,0 +1,158 @@
+@import 'shared';
+
+* {
+  font-family: $font-sans-serif;
+}
+
+div.page.editorMode {
+  margin: 0 auto;
+  top: 36px;
+  position: relative;
+}
+
+div.bar {
+  background-color: $bg;
+  position: sticky;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid $border;
+  top: 48px;
+  padding: 12px 0;
+  z-index: 1;
+  margin: 0;
+
+  div.actions {
+    display: flex;
+
+    > button, a {
+      margin: 0 6px;
+
+      &:nth-last-child() {
+        margin: 0 0 0 6px;
+      }
+    }
+  }
+}
+
+div.focus-form {
+  width: 100%;
+  margin: 36px auto 0;
+  
+  h1, h4 {
+    text-align: center;
+  }
+
+  form {
+    max-width: 320px;
+    width: 100%;
+    margin: 0 auto;
+
+    h3 {
+      line-height: 1.6rem;
+    }
+  }
+}
+
+header {
+  height: 48px;
+  background-color: $primary;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 12px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 100%;
+
+  span.ttpresslogo {
+    font-size: 1.1rem;
+    color: $primary-text;
+    font-weight: 800;
+    font-family: $font-sans-serif;
+    padding: 0 12px;
+  }
+
+  a {
+    color: $primary-text;
+    font-family: $font-sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin: 0 12px;
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
+footer {
+  font-size: 0.8rem;
+  margin: 36px auto 0;
+  width: 100%;
+  text-align: center;
+  color: $text-muted;
+  font-family: $font-serif;
+
+  a {
+    color: $text-muted;
+    font-size: 0.9rem !important;
+    font-weight: 800;
+    font-family: $font-serif;
+
+    &:hover {
+      color: $primary;
+    }
+  }
+}
+
+form.postForm {
+  div.bar div.form-control {
+    max-width: 50%;
+    width: 100%;
+  }
+
+  textarea {
+    resize: vertical;
+  }
+}
+
+.side {
+  text-align: right;
+
+  div.cover-image {
+    margin: 6px 0 24px;
+
+    img {
+      margin: 6px 0;
+      width: 100%;
+    }
+
+    input[type="file"] {
+      margin: 6px 0;
+      border: 1px solid $border;
+      padding: 6px;
+      max-width: 100%;
+    }
+  }
+
+  div.details {
+    h4 {
+      margin: 0 0 6px;
+    }
+
+    span {
+      display: block;
+      color: $text;
+      margin: 0 0 6px;
+
+      strong {
+        display: block;
+        color: $text-heading;
+      }
+    }
+  }
+}
+
+@import 'quill';

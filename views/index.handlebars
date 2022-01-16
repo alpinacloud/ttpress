@@ -1,0 +1,20 @@
+{{#if searchMode}}
+  {{#isEq lh=specificError rh="too_short"}}
+    <div class="alert error">
+      {{{alertTriangleIcon}}}
+      <p class="title">Please enter at least 3 characters to search</p>
+    </div>
+  {{else}}
+    <div>
+      <h1>{{posts.length}} results found</h1>
+    </div>
+  {{/isEq}}
+{{/if}}
+
+<main class="home style-{{prefs.site.homepageStyle}}">
+  {{#each posts}}
+    {{> gridPost prefs=../prefs mainPostUUID=../mainPostUUID post=. }}
+  {{/each}}
+</main>
+
+{{> pagination}}

@@ -1,0 +1,17 @@
+<div class="focus-form">
+  <h1>Welcome back!</h1>
+
+  <form method="post" action="/editor/login">
+    {{#if formErrors}}
+      <div class="alert error">
+        {{{alertTriangleIcon}}}
+        <p class="title">Couldn't find you</p>
+      </div>
+    {{/if}}
+
+    <div class="form-section">
+      {{> editor/login/inputs initialUsername=prefill.username }}
+    </div>
+    <button class="btn sm primary width-fill">Login</button>
+  </form>
+</div>

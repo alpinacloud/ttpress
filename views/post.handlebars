@@ -1,0 +1,16 @@
+<article class="post">
+  <h1>{{post.title}}</h1>
+  {{#if post.subtitle}}
+    <h2>{{post.subtitle}}</h2>
+  {{/if}}
+
+  {{> postDetails post=post}}
+
+  {{#isEq lh=prefs.site.coverInPosts rh="on"}}
+    <img class="cover" src="/i/{{post.coverImage}}" alt="{{post.title}} cover image" />
+  {{/isEq}}
+
+  <section class="content">
+    {{{post.content}}}
+  </section>
+</article>

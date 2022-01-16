@@ -1,0 +1,77 @@
+@import 'theme';
+
+@font-face {
+  font-family: 'SourceSerif';
+  font-weight: 800;
+  font-feature-settings: 'liga' off;
+  src: url('/fonts/sourceserif/SourceSerif4-Bold.ttf.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'SourceSerif';
+  font-weight: 400;
+  font-feature-settings: 'liga' off;
+  src: url('/fonts/sourceserif/SourceSerif4-Regular.ttf.woff2') format('woff2');
+}
+
+:root {
+  font-size: 16px;
+}
+
+body {
+  background-color: $bg;
+  font-family: $font-serif;
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+  font-smoothing: antialiased;
+  font-feature-settings: 'liga', 'clig';
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: $font-serif;
+}
+
+.page {
+  margin: 0 auto;
+  min-width: 320px;
+  max-width: 1280px;
+  padding: 12px;
+
+  @media all and (min-width: 1280px) {
+    max-width: 960px;
+    padding: 12px 0;
+  }
+
+  @media all and (min-width: 1440px) {
+    max-width: 1280px;
+    padding: 12px 0;
+  }
+}
+
+a {
+  font-family: $font-sans-serif, $font-serif;
+  text-decoration: none;
+  color: $primary;
+
+  &:hover {
+    text-decoration: underline;
+    opacity: 0.8;
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 3px $outline;
+  }
+}
+
+@import 'button';
+@import 'form';
+@import 'typography';
+@import 'grid';
+@import 'table';
+@import 'alert';
+@import 'article';

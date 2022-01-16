@@ -1,0 +1,29 @@
+<div class="bar">
+  <h2>Posts</h2>
+
+  <div class="actions">
+    <a href="/editor/posts/new" class="btn primary">New post</a>
+  </div>
+</div>
+
+<table>
+  <tbody>
+    {{#each posts}}
+      <tr>
+        <td>
+          <a href="/editor/posts/{{uuid}}" class="btn link name">{{trunc text=title limit=64}}</a>
+          <span class="sub status {{#isEq lh=state rh="DRAFT"}}off{{else}}on{{/isEq}}">{{state}}</span>
+          &middot;
+          <span class="sub">Created at: {{createdAt}}</span>
+          {{#if author}}&middot; <span class="sub">by {{author}}</span>{{/if}}
+        </td>
+        <td>
+          <div style="display: flex">
+            <a href="/editor/posts/{{uuid}}" class="btn link">Edit</a>
+            <a href="/editor/posts/{{uuid}}/delete" class="btn link">Delete</a>
+          </div>
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

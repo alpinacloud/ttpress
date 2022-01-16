@@ -1,0 +1,15 @@
+<div class="pagination">
+  {{#if previousPage includeZero=true}}
+    <a href="/?page={{previousPage}}" class="btn secondary">&#10229;</a>
+  {{else}}
+    <span class="disabled-arrow">&#10229;</span>
+  {{/if}}
+
+  <span class="current">{{page}}</span>
+
+  {{#if nextPage includeZero=true}}
+    <a href="/?page={{nextPage}}" class="btn secondary">&#10230;</a>
+  {{else}}
+    <span class="disabled-arrow">&#10230;</span>
+  {{/if}}
+</div>

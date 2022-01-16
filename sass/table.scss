@@ -1,0 +1,57 @@
+table {
+  border-collapse: collapse;
+  margin: 12px 0;
+  width: 100%;
+
+  tr {
+
+  }
+
+  th {
+    font-weight: 800;
+    text-align: left;
+    font-family: $font-sans-serif;
+    color: $text-heading;
+    font-size: 1.25rem;
+  }
+
+  td {
+    text-align: left;
+    color: $text;
+    font-size: 1.1rem;
+    padding: 12px 0;
+
+    a.name {
+      font-size: 1.25rem;
+      display: block;
+      padding: 0 !important;
+      color: $text-heading !important;
+    }
+
+    .sub {
+      color: $text-muted;
+      font-family: $font-sans-serif;
+      font-size: 0.9rem;
+      font-weight: 400;
+    }
+
+    .status {
+      font-weight: 600;
+
+      &.off {
+        color: $text-muted;
+      }
+
+      &.on {
+        color: $primary;
+      }
+    }
+
+    &:last-of-type {
+      text-align: right;
+      a {
+        margin-left: auto;
+      }
+    }
+  }
+}

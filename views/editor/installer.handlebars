@@ -1,0 +1,37 @@
+<div class="focus-form">
+  <h1>Let's get started!</h1>
+  <h4 class="muted">We need some basic details to get started</h4>
+
+  <form method="post" action="/editor/installer">
+    {{#if formErrors}}
+      <div class="alert error">
+        {{{alertTriangleIcon}}}
+        <p class="title">Unable to complete installation, please make sure that:</p>
+        <ul>
+          <li>Website name contains at least 3 and at most 24 characters</li>
+          <li>Website description contains at least 3 and at most 320 characters</li>
+          <li>Username contains at least 4 and at most 24 characters</li>
+          <li>Password contains at least 8 and at most 48 characters</li>
+          <li>You've entered the same password twice</li>
+        </ul>
+      </div>
+    {{/if}}
+
+    <div class="form-section">
+      <h3>Website</h3>
+      {{> editor/settings/site prefill=prefill installing="y" }}
+    </div>
+
+    <div class="form-section">
+      <h3>Login details</h3>
+      {{> editor/login/inputs initialUsername=prefill.username }}
+
+      <div class="form-control">
+        <label for="pwdRepeat">Repeat password</label>
+        <input type="password" id="pwdRepeat" name="pwdRepeat" />
+      </div>
+    </div>
+
+    <button type="submit" class="btn sm primary width-fill">Complete setup</button>
+  </form>
+</div>

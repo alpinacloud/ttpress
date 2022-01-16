@@ -1,0 +1,21 @@
+<article class="grid-post{{#isEq lh=mainPostUUID rh=uuid}} main-post{{/isEq}}">
+  <a href="/p/{{slug}}">
+    {{#isEq lh=prefs.site.homepageStyle rh="news"}}
+      <img src="/i/{{coverImage}}_{{#isEq lh=mainPostUUID rh=uuid}}1000{{else}}300{{/isEq}}" alt="{{title}} cover image" />
+    {{/isEq}}
+
+    <span>
+      <h1>{{title}}</h1>
+      {{#isEq lh=prefs.site.homepageStyle rh="news"}}
+        {{#isEq lh=mainPostUUID rh=uuid}}
+          {{#if subtitle}}
+            <h2>{{subtitle}}</h2>
+          {{/if}}
+          {{> postDetails post=.}}
+        {{/isEq}}
+      {{else}}
+        {{> postDetails post=. hideUpdateDate="y"}}
+      {{/isEq}}
+    </span>
+  </a>
+</article>

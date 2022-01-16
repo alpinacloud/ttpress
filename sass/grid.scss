@@ -1,0 +1,30 @@
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+
+  &.nowrap {
+    flex-wrap: nowrap;
+  }
+  
+  > .grid-box-2 {
+    width: 50%;
+    padding: 0 0 0 24px;
+
+    &:nth-child(2n+1) {
+      padding: 0 24px 0 0;
+    }
+  }
+
+  > .grid-box-fill {
+    width: 100%;
+  }
+
+  > .grid-box-3 {
+    width: 33.3333333333%;
+    padding: 0 0 0 24px;
+
+    &:nth-child(3n+1) {
+      padding: 0 24px 0 0;
+    }
+  }
+}

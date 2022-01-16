@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  ttpress:
+    image: alpinacloud/ttpress:latest
+    restart: always
+    depends_on:
+      - postgres
+    ports:
+      - '0.0.0.0:4444:4444'
+    volumes:
+      - ttpress_storage:/data/ttpress-storage
+    environment:
+      - POSTGRES_SERVICE_HOST=postgres
+      - POSTGRES_SERVICE_USERNAME=postgres
+      - POSTGRES_SERVICE_DATABASE=ttpress
+      - POSTGRES_SERVICE_PASSWORD=pwd
+      - POSTGRES_SERVICE_PORT=5432
+      - JWT_SECRET=some_generated_str
+      - COOKIE_DOMAIN=.dev.localapp
+      - DISK_STORAGE=/data/ttpress-storage
+      - PORT=4444
+
+  postgres:
+    image: postgres:14-alpine
+    restart: always
+    ports:
+      - '127.0.0.1:5432:5432'
+    volumes:
+      - postgres:/data/postgres
+    environment:
+      - POSTGRES_DB=ttpress
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=pwd
+
+volumes:
+  postgres:
+  ttpress_storage:
+    driver: local
+    driver_opts:
+      type: volume
+      o: bind
+      device: /data/ttpress-stg
